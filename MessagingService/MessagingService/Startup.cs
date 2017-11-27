@@ -37,7 +37,10 @@ namespace MessagingService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=message}/{action=GetMessage}");
+            });
         }
     }
 }
