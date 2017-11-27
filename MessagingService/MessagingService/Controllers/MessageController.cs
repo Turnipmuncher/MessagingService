@@ -20,9 +20,8 @@ namespace MessagingService.Controllers
 
             if (_context.MessageItems.Count() == 0)
             {
-                return NotFound();
-                //_context.MessageItems.Add(new MessageItem { subject = "Message 1", isDraft = true });
-                //_context.SaveChanges();
+                _context.MessageItems.Add(new MessageItem { subject = "Message 1", isDraft = true });
+                _context.SaveChanges();
             }
         }
 

@@ -12533,7 +12533,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ant12\\.nuget\\packages\\": {},
+    "C:\\Users\\q5233000\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -12542,17 +12542,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\ant12\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\MessagingService.csproj",
+      "projectUniqueName": "C:\\Users\\q5233000\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\MessagingService.csproj",
       "projectName": "MessagingService",
-      "projectPath": "C:\\Users\\ant12\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\MessagingService.csproj",
-      "packagesPath": "C:\\Users\\ant12\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ant12\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\obj\\",
+      "projectPath": "C:\\Users\\q5233000\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\MessagingService.csproj",
+      "packagesPath": "C:\\Users\\q5233000\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\q5233000\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\ant12\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\q5233000\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12578,7 +12578,7 @@
         "dependencies": {
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "2.0",
+            "version": "2.0.0",
             "autoReferenced": true
           },
           "Microsoft.AspNetCore.All": {
