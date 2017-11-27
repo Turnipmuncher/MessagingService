@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MessagingService.Controllers
 {
-    [Route("api/message")]
+    [Route("api/[controller]")]
     public class ValuesController : Controller
     {
         // GET api/values

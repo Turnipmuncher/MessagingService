@@ -9,7 +9,7 @@ using MessagingService.Models;
 
 namespace MessagingService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/message")]
     public class MessageController : Controller
     {
         private readonly MessageContext _context;
