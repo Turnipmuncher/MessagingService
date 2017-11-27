@@ -9,7 +9,7 @@ using MessagingService.Models;
 
 namespace MessagingService.Controllers
 {
-    [Route("api/message")]
+    [Route("api/[controller]")]
     public class MessageController : Controller
     {
         private readonly MessageContext _context;
@@ -25,7 +25,7 @@ namespace MessagingService.Controllers
             }
         }
 
-        // GET: api/values
+        // GET: api/messages
         [HttpGet]
         public IEnumerable<MessageItem> GetAll()
         {
@@ -58,6 +58,25 @@ namespace MessagingService.Controllers
 
             return CreatedAtRoute("GetMessage", new { id = item.id, sender = item.sender }, item);
         }
+
+       // [HttpPost]
+       // public IActionResult CreateInvoice([FromBody] MessageItem item, String message)
+       // {
+       //     if (item == null)
+       //     {
+       //         return BadRequest();
+       //     }
+
+      //      item.sender = "Purchasing";
+      //      item.recipient = "bob";
+       //     item.subject = "Invoice";
+       //     item.message = message;
+
+        //    _context.MessageItems.Add(item);
+        //    _context.SaveChanges();
+
+         //   return CreatedAtRoute("GetMessage", new { id = item.id, sender = item.sender }, item);
+       // }
 
         [HttpPut("{id}")]
         public IActionResult Update(long id, [FromBody] MessageItem item)
