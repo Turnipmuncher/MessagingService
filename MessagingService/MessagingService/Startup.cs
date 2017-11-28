@@ -25,8 +25,11 @@ namespace MessagingService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MessageContext>(opt => opt.UseInMemoryDatabase("MessageList"));
+           // services.AddDbContext<MessageContext>(opt => opt.UseInMemoryDatabase("MessageList"));
             services.AddMvc();
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=MessagingService;Trusted_Connection=True;";
+            services.AddDbContext<MessageContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,10 +40,7 @@ namespace MessagingService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("default", "{controller=message}/{action=GetMessage}");
-            });
+            app.UseMvc();
         }
     }
 }
