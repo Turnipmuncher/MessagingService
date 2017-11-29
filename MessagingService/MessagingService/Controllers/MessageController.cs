@@ -18,11 +18,11 @@ namespace MessagingService.Controllers
         {
             _context = context;
 
-            //if (_context.MessageItems.Count() == 0)
-            //{
-            //    _context.MessageItems.Add(new MessageItem { subject = "Message 1", isDraft = true });
-            //    _context.SaveChanges();
-            //}
+            if (_context.MessageItems.Count() == 0)
+            {
+                _context.MessageItems.Add(new MessageItem { subject = "Message 1", isDraft = true });
+                _context.SaveChanges();
+            }
         }
 
         // GET: api/messages
@@ -35,7 +35,7 @@ namespace MessagingService.Controllers
         [HttpGet("{id}", Name = "GetMessage")]
         public IActionResult GetById(long id)
         {
-            var item = _context.MessageItems.FirstOrDefault(t => t.MessageId == id);
+            var item = _context.MessageItems.FirstOrDefault(t => t.id == id);
             if (item == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace MessagingService.Controllers
             _context.MessageItems.Add(item);
            // _context.SaveChanges();
 
-            return CreatedAtRoute("GetMessage", new { id = item.MessageId, sender = item.sender }, item);
+            return CreatedAtRoute("GetMessage", new { id = item.id, sender = item.sender }, item);
         }
 
        // [HttpPost]
@@ -81,12 +81,12 @@ namespace MessagingService.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(long id, [FromBody] MessageItem item)
         {
-            if (item == null || item.MessageId != id)
+            if (item == null || item.id != id)
             {
                 return BadRequest();
             }
 
-            var message = _context.MessageItems.FirstOrDefault(t => t.MessageId == id);
+            var message = _context.MessageItems.FirstOrDefault(t => t.id == id);
             if (message == null || message.isDraft == false)
             {
                 return NotFound();
@@ -105,7 +105,7 @@ namespace MessagingService.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var message = _context.MessageItems.FirstOrDefault(t => t.MessageId == id);
+            var message = _context.MessageItems.FirstOrDefault(t => t.id == id);
             if (message == null)
             {
                 return NotFound();
