@@ -54,7 +54,7 @@ namespace MessagingService.Controllers
             item.sender = "Bob";
 
             _context.MessageItems.Add(item);
-           // _context.SaveChanges();
+            _context.SaveChanges();
 
             return CreatedAtRoute("GetMessage", new { id = item.id, sender = item.sender }, item);
         }
