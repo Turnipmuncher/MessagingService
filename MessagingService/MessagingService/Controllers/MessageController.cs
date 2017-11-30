@@ -11,7 +11,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MessagingService.Controllers
 {
-    [Route("messaging/messages")]
+    [Produces("application/json")]
+    [Route("api/messages")]
     public class MessageController : Controller
     {
         private readonly MessageContext _context;
@@ -25,14 +26,18 @@ namespace MessagingService.Controllers
         [HttpGet("", Name = "List Messages")]
         public async Task<IActionResult>  GetMessages()
         {
-            var messages = await _context.MessageItems.ToListAsync();
+            if (!_context.Messages.Any())
+            {
+                return NotFound();
+            }
+            var messages = await _context.Messages.ToListAsync();
             return Ok(messages);
         }
 
         [HttpGet("{id}", Name = "GetMessage")]
         public IActionResult GetById(long id)
         {
-            var item = _context.MessageItems.FirstOrDefault(t => t.id == id);
+            var item = _context.Messages.FirstOrDefault(t => t.id == id);
             if (item == null)
             {
                 return NotFound();
@@ -41,7 +46,7 @@ namespace MessagingService.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] MessageItem item)
+        public IActionResult Create([FromBody] Message item)
         {
             if (item == null)
             {
@@ -50,7 +55,7 @@ namespace MessagingService.Controllers
 
             item.sender = "Bob";
 
-            _context.MessageItems.Add(item);
+            _context.Messages.Add(item);
             _context.SaveChanges();
 
             return CreatedAtRoute("GetMessage", new { id = item.id, sender = item.sender }, item);
@@ -76,14 +81,14 @@ namespace MessagingService.Controllers
        // }
 
         [HttpPut("{id}")]
-        public IActionResult Update(long id, [FromBody] MessageItem item)
+        public IActionResult Update(long id, [FromBody] Message item)
         {
             if (item == null || item.id != id)
             {
                 return BadRequest();
             }
 
-            var message = _context.MessageItems.FirstOrDefault(t => t.id == id);
+            var message = _context.Messages.FirstOrDefault(t => t.id == id);
             if (message == null || message.isDraft == false)
             {
                 return NotFound();
@@ -94,7 +99,7 @@ namespace MessagingService.Controllers
             message.message = item.message;
             message.recipient = item.message;
 
-            _context.MessageItems.Update(message);
+            _context.Messages.Update(message);
             _context.SaveChanges();
             return new NoContentResult();
         }
@@ -102,13 +107,13 @@ namespace MessagingService.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var message = _context.MessageItems.FirstOrDefault(t => t.id == id);
+            var message = _context.Messages.FirstOrDefault(t => t.id == id);
             if (message == null)
             {
                 return NotFound();
             }
 
-            _context.MessageItems.Remove(message);
+            _context.Messages.Remove(message);
             _context.SaveChanges();
             return new NoContentResult();
         }

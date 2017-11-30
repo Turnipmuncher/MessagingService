@@ -14,11 +14,11 @@ namespace MessagingService.Model
         {
         }
 
-        public DbSet<MessageItem> MessageItems { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MessageItem>().ToTable("Message");
+            modelBuilder.Entity<Message>().ToTable("Message");
         }
     }
 }

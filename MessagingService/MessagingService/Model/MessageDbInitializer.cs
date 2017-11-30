@@ -9,12 +9,9 @@ namespace MessagingService.Model
     {
         public static void Initialize(MessageContext context)
         {
-
-            context.Database.EnsureDeleted();
-
             context.Database.EnsureCreated();
 
-            context.MessageItems.Add(new Model.MessageItem
+            context.Messages.Add(new Model.Message
             {
                 id = 1,
                 subject = "not delivered",

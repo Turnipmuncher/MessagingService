@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MessagingService.Model
 {
-    public class MessageItem
+    public class Message
     {
         public long id { get; set; }
         public string subject { get; set; }
