@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MessagingService.Models
+namespace MessagingService.Model
 {
     public class MessageItem
     {

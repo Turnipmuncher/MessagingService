@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MessagingService.Controllers;
 using Microsoft.EntityFrameworkCore;
 
-namespace MessagingService.Models
+namespace MessagingService.Model
 {
     public class MessageContext : DbContext
     {
@@ -16,6 +16,9 @@ namespace MessagingService.Models
 
         public DbSet<MessageItem> MessageItems { get; set; }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MessageItem>().ToTable("Message");
+        }
     }
 }

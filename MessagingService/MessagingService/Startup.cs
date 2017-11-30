@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-using MessagingService.Models;
+using MessagingService.Model;
 
 namespace MessagingService
 {
@@ -25,11 +25,10 @@ namespace MessagingService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddDbContext<MessageContext>(opt => opt.UseInMemoryDatabase("MessageList"));
+            services.AddDbContext<MessageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MessageConnection")));
             services.AddMvc();
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=MessagingService;Trusted_Connection=True;";
-            services.AddDbContext<MessageContext>(options => options.UseSqlServer(connection));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

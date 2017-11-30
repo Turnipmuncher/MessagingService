@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MessagingService.Models;
+using MessagingService.Model;
+using Microsoft.EntityFrameworkCore;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,19 +19,14 @@ namespace MessagingService.Controllers
         public MessageController(MessageContext context)
         {
             _context = context;
-
-            if (_context.MessageItems.Count() == 0)
-            {
-                _context.MessageItems.Add(new MessageItem { subject = "Message 1", isDraft = true });
-                _context.SaveChanges();
-            }
         }
 
         // GET: api/messages
-        [HttpGet]
-        public IEnumerable<MessageItem> GetAll()
+        [HttpGet("", Name = "List Messages")]
+        public async Task<IActionResult>  GetMessages()
         {
-            return _context.MessageItems.ToList();
+            var messages = await _context.MessageItems.ToListAsync();
+            return Ok(messages);
         }
 
         [HttpGet("{id}", Name = "GetMessage")]
