@@ -1,0 +1,11 @@
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\bin\Debug\netcoreapp2.0\MessageService.deps.json
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\bin\Debug\netcoreapp2.0\MessageService.runtimeconfig.json
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\bin\Debug\netcoreapp2.0\MessageService.runtimeconfig.dev.json
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\bin\Debug\netcoreapp2.0\MessageService.dll
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\obj\Debug\netcoreapp2.0\MessageService.csprojResolveAssemblyReference.cache
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\obj\Debug\netcoreapp2.0\MessageService.csproj.CoreCompileInputs.cache
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\obj\Debug\netcoreapp2.0\MessageService.AssemblyInfoInputs.cache
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\obj\Debug\netcoreapp2.0\MessageService.AssemblyInfo.cs
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\bin\Debug\netcoreapp2.0\MessageService.pdb
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\obj\Debug\netcoreapp2.0\MessageService.dll
+C:\Users\ant12\Documents\GitHub\MessagingService\MessagingService\MessageService\obj\Debug\netcoreapp2.0\MessageService.pdb
