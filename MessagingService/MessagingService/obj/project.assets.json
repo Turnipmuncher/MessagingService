@@ -13126,11 +13126,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\ant12\\source\\repos\\MessagingService\\MessagingService\\MessagingService.csproj",
+      "projectUniqueName": "C:\\Users\\ant12\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\MessagingService.csproj",
       "projectName": "MessagingService",
-      "projectPath": "C:\\Users\\ant12\\source\\repos\\MessagingService\\MessagingService\\MessagingService.csproj",
+      "projectPath": "C:\\Users\\ant12\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\MessagingService.csproj",
       "packagesPath": "C:\\Users\\ant12\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ant12\\source\\repos\\MessagingService\\MessagingService\\obj\\",
+      "outputPath": "C:\\Users\\ant12\\Documents\\GitHub\\MessagingService\\MessagingService\\MessagingService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
