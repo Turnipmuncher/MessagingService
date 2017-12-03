@@ -8,8 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MessagingService.Data;
 using Microsoft.EntityFrameworkCore;
-using MessagingService.Models;
 
 namespace MessagingService
 {
@@ -25,7 +25,8 @@ namespace MessagingService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MessageContext>(opt => opt.UseInMemoryDatabase("MessageList"));
+            services.AddDbContext<MessageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MessageConnection")));
+
             services.AddMvc();
         }
 
