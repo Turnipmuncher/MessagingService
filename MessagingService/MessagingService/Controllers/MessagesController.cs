@@ -47,8 +47,8 @@ namespace MessagingService.Controllers
             return Ok(message);
         }
 
-        [HttpGet("subjects/{subjectid}", Name = "Get messages by subject ID")]
-        public async Task<IActionResult> GetMessages([FromRoute] int subjectid)
+        [HttpGet("subject/{subject}", Name = "Get messages by subject")]
+        public async Task<IActionResult> GetMessages([FromRoute] string subject)
         {
             if (!ModelState.IsValid)
             {
@@ -58,11 +58,11 @@ namespace MessagingService.Controllers
             {
                 return NotFound();
             }
-            if (!_context.Messages.Where(m => m.subjectId == subjectid).Any())
+            if (!_context.Messages.Where(m => m.subject == subject).Any())
             {
                 return NoContent();
             }
-            var messages = await _context.Messages.Where(m => m.subjectId == subjectid).ToListAsync();
+            var messages = await _context.Messages.Where(m => m.subject == subject).ToListAsync();
             return Ok(messages);
         }
 
@@ -94,7 +94,12 @@ namespace MessagingService.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != message.id)
+            if (!_context.Messages.Where(m => m.id == id).Any())
+            {
+                return NoContent();
+            }
+        
+            if (_context.Messages.Where(m => m.id == id && m.isDraft == false ).Any())
             {
                 return NoContent();
             }
@@ -108,12 +113,53 @@ namespace MessagingService.Controllers
 
         // POST: api/Messages
         [HttpPost]
-        public async Task<IActionResult> PostMessage([FromBody] Message message)
+        public async Task<IActionResult> SendMessage([FromBody] Message message)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            
+            if (message.subject.Equals(_context.Subject.Where(m => m.subject == message.subject)))
+            {
+                Subject sub = await _context.Subject.SingleOrDefaultAsync(m => m.subject == message.subject);
+                message.subjectId = sub.id;
+            }
+            else
+            {
+                _context.Subject.Add(new Subject { subject = message.subject });
+                await _context.SaveChangesAsync();
+                Subject sub = await _context.Subject.SingleOrDefaultAsync(m => m.subject == message.subject);
+                message.subjectId = sub.id;
+            }
+            message.datesent = DateTime.Now;
+            _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetMessage", new { id = message.id }, message);
+        }
+        [HttpPost("Reply/{id}")]
+        public async Task<IActionResult> PostReply([FromRoute] int id, [FromBody] Message message)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!_context.Messages.Any())
+            {
+                return NotFound();
+            }
+            if (!_context.Messages.Where(m => m.id == id).Any())
+            {
+                return NoContent();
+            }
+
+            Message mes = await _context.Messages.SingleOrDefaultAsync(m => m.id == id);
+            message.recipient = mes.recipient;
+            message.sender = mes.sender;
+            message.subject = mes.subject;
+            message.subjectId = mes.subjectId;
+            message.datesent = DateTime.Now;
 
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
