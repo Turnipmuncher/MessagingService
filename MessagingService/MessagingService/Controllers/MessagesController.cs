@@ -47,7 +47,7 @@ namespace MessagingService.Controllers
             return Ok(message);
         }
 
-        [HttpGet("subjects/{subjectid}", Name = "Get orders by subject ID")]
+        [HttpGet("subjects/{subjectid}", Name = "Get messages by subject ID")]
         public async Task<IActionResult> GetMessages([FromRoute] int subjectid)
         {
             if (!ModelState.IsValid)
@@ -63,6 +63,25 @@ namespace MessagingService.Controllers
                 return NoContent();
             }
             var messages = await _context.Messages.Where(m => m.subjectId == subjectid).ToListAsync();
+            return Ok(messages);
+        }
+
+        [HttpGet("Users/{user}", Name = "Get messages by users")]
+        public async Task<IActionResult> GetMessagesbyuser([FromRoute] string user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!_context.Messages.Any())
+            {
+                return NotFound();
+            }
+            if (!_context.Messages.Where(m => m.recipient == user || m.sender == user).Any())
+            {
+                return NoContent();
+            }
+            var messages = await _context.Messages.Where(m => m.recipient == user || m.sender == user).ToListAsync();
             return Ok(messages);
         }
 

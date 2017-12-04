@@ -23,8 +23,8 @@ namespace MessagingService.Data
             testSubject.Add(new Subject { subject = "Test 1" });
             testSubject.Add(new Subject { subject = "Test 2" });
 
-            testMessages.Add(new Message { messageId = 2, subjectId = 2, subject = "Test 1", message = "Testing.", sender = "Test-sender", recipient = "Test-sender-staff", isDraft = true, datesent = DateTime.Now });
-            testMessages.Add(new Message { messageId = 1, subjectId = 1, subject = "Test 2", message = "Item has not been deliverd.", sender = "Test-sender", recipient = "Test-sender-staff", isDraft = false, datesent = DateTime.Now }); 
+            testMessages.Add(new Message { messageId = 2, subjectId = 2, subject = "Test 1", message = "Testing.", sender = "Test-sender1", recipient = "Test-sender-staff1", isDraft = true, datesent = DateTime.Now });
+            testMessages.Add(new Message { messageId = 1, subjectId = 1, subject = "Test 2", message = "Item has not been deliverd.", sender = "Test-sender1", recipient = "Test-sender-staff2", isDraft = false, datesent = DateTime.Now }); 
 
             testInvoices.Add(new Invoice { orderId = 1, orderDetails = "Testing", sender = "Test-Sender", recipient = "Test-Recipient", datesent = DateTime.Now });
 
