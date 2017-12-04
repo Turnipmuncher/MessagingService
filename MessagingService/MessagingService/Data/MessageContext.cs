@@ -14,13 +14,11 @@ namespace MessagingService.Data
         {
         }
 
-        public DbSet<Subject> Subject { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Invoice> Invoice { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Subject>().ToTable("Subject");
             modelBuilder.Entity<Message>().ToTable("Message");
             modelBuilder.Entity<Invoice>().ToTable("Invoice");
         }

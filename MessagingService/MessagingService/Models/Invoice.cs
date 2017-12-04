@@ -10,7 +10,6 @@ namespace MessagingService.Models
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-        public int orderId { get; set; }
         public string orderDetails { get; set; }
         public string sender { get; set; }
         public string recipient { get; set; }

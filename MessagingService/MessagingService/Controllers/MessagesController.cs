@@ -54,13 +54,9 @@ namespace MessagingService.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (!_context.Messages.Any())
+            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.subject == subject).Any())
             {
                 return NotFound();
-            }
-            if (!_context.Messages.Where(m => m.subject == subject).Any())
-            {
-                return NoContent();
             }
             var messages = await _context.Messages.Where(m => m.subject == subject).ToListAsync();
             return Ok(messages);
@@ -73,13 +69,10 @@ namespace MessagingService.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (!_context.Messages.Any())
+
+            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipient == user || m.sender == user).Any())
             {
                 return NotFound();
-            }
-            if (!_context.Messages.Where(m => m.recipient == user || m.sender == user).Any())
-            {
-                return NoContent();
             }
             var messages = await _context.Messages.Where(m => m.recipient == user || m.sender == user).ToListAsync();
             return Ok(messages);
@@ -94,14 +87,14 @@ namespace MessagingService.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!_context.Messages.Where(m => m.id == id).Any())
+            if (id != message.id)
             {
-                return NoContent();
+                return BadRequest();
             }
-        
+
             if (_context.Messages.Where(m => m.id == id && m.isDraft == false ).Any())
             {
-                return NoContent();
+                return NotFound();
             }
             else
             {
@@ -120,24 +113,13 @@ namespace MessagingService.Controllers
                 return BadRequest(ModelState);
             }
             
-            if (message.subject.Equals(_context.Subject.Where(m => m.subject == message.subject)))
-            {
-                Subject sub = await _context.Subject.SingleOrDefaultAsync(m => m.subject == message.subject);
-                message.subjectId = sub.id;
-            }
-            else
-            {
-                _context.Subject.Add(new Subject { subject = message.subject });
-                await _context.SaveChangesAsync();
-                Subject sub = await _context.Subject.SingleOrDefaultAsync(m => m.subject == message.subject);
-                message.subjectId = sub.id;
-            }
             message.datesent = DateTime.Now;
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetMessage", new { id = message.id }, message);
         }
+
         [HttpPost("Reply/{id}")]
         public async Task<IActionResult> PostReply([FromRoute] int id, [FromBody] Message message)
         {
@@ -145,7 +127,7 @@ namespace MessagingService.Controllers
             {
                 return BadRequest(ModelState);
             }
-            if (!_context.Messages.Any())
+            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.id == id).Any())
             {
                 return NotFound();
             }
