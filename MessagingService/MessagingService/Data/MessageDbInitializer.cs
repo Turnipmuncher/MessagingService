@@ -20,14 +20,14 @@ namespace MessagingService.Data
             List<Invoice> testInvoices = new List<Invoice>();
             List<User> testUsers = new List<User>();
 
-            testUsers.Add(new User { userName = "BarryBob", isStaff = false, isActive = true });
-            testUsers.Add(new User { userName = "BobBarry", isStaff = true, isActive = true });
+            testUsers.Add(new User { userID = "Test1-Pls-ignore", userName = "BarryBob", isStaff = false, isActive = true });
+            testUsers.Add(new User { userID = "Test1-Pls-ignore", userName = "BobBarry", isStaff = true, isActive = true });
 
             context.User.AddRange(testUsers);
             context.SaveChanges();
 
-            testMessages.Add(new Message { subject = "Test 1", message = "Testing.", isDraft = true, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BarryBob").id, recipientID = testUsers.Single(s => s.userName == "BobBarry").id });
-            testMessages.Add(new Message { subject = "Test 2", message = "Item has not been deliverd.", isDraft = false, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BobBarry").id, recipientID = testUsers.Single(s => s.userName == "BarryBob").id });
+            testMessages.Add(new Message { subject = "Test 1", message = "Testing.", isDraft = true, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BarryBob").userID, recipientID = testUsers.Single(s => s.userName == "BobBarry").userID });
+            testMessages.Add(new Message { subject = "Test 2", message = "Item has not been deliverd.", isDraft = false, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BobBarry").userID, recipientID = testUsers.Single(s => s.userName == "BarryBob").userID });
 
             context.Messages.AddRange(testMessages);
             context.SaveChanges();

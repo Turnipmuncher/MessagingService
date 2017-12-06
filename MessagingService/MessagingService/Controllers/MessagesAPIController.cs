@@ -70,11 +70,11 @@ namespace MessagingService.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == user).id || m.senderID == _context.User.SingleOrDefault(u => u.userName == user).id && m.isActive == true).Any())
+            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == user).userID || m.senderID == _context.User.SingleOrDefault(u => u.userName == user).userID && m.isActive == true).Any())
             {
                 return NotFound();
             }
-            var messages = await _context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == user).id || m.senderID == _context.User.SingleOrDefault(u => u.userName == user).id).ToListAsync();
+            var messages = await _context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == user).userID || m.senderID == _context.User.SingleOrDefault(u => u.userName == user).userID).ToListAsync();
             return Ok(messages);
         }
 
@@ -86,11 +86,11 @@ namespace MessagingService.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.senderID == _context.User.SingleOrDefault(u => u.userName == sender).id && m.isActive == true).Any())
+            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.senderID == _context.User.SingleOrDefault(u => u.userName == sender).userID && m.isActive == true).Any())
             {
                 return NotFound();
             }
-            var messages = await _context.Messages.Where(m => m.senderID == _context.User.SingleOrDefault(u => u.userName == sender).id).ToListAsync();
+            var messages = await _context.Messages.Where(m => m.senderID == _context.User.SingleOrDefault(u => u.userName == sender).userID).ToListAsync();
             return Ok(messages);
         }
 
@@ -102,11 +102,11 @@ namespace MessagingService.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == reciever).id).Any())
+            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == reciever).userID).Any())
             {
                 return NotFound();
             }
-            var messages = await _context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == reciever).id).ToListAsync();
+            var messages = await _context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == reciever).userID).ToListAsync();
             return Ok(messages);
         }
 
@@ -151,7 +151,7 @@ namespace MessagingService.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            message.recipientID = _context.User.SingleOrDefault(u => u.userName == user).id;
+            message.recipientID = _context.User.SingleOrDefault(u => u.userName == user).userID;
             message.datesent = DateTime.Now;
             message.isActive = true;
             

@@ -10,6 +10,7 @@ namespace MessagingService.Models
     {
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
+        public string userID { get; set; }
         public string userName { get; set; }
         public bool isStaff { get; set; }
         public bool isActive { get; set; }
