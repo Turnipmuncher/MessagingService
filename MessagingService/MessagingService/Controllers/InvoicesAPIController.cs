@@ -12,11 +12,11 @@ namespace MessagingService.Controllers
 {
     [Produces("application/json")]
     [Route("api/Invoices")]
-    public class InvoicesController : Controller
+    public class InvoicesAPIController : Controller
     {
         private readonly MessageContext _context;
 
-        public InvoicesController(MessageContext context)
+        public InvoicesAPIController(MessageContext context)
         {
             _context = context;
         }

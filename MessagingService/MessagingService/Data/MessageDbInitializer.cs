@@ -18,9 +18,16 @@ namespace MessagingService.Data
 #if DEBUG
             List<Message> testMessages = new List<Message>();
             List<Invoice> testInvoices = new List<Invoice>();
+            List<User> testUsers = new List<User>();
 
-            testMessages.Add(new Message { messageId = 2,subject = "Test 1", message = "Testing.", sender = "Test-sender1", recipient = "Test-sender-staff1", isDraft = true, datesent = DateTime.Now });
-            testMessages.Add(new Message { messageId = 1, subject = "Test 2", message = "Item has not been deliverd.", sender = "Test-sender1", recipient = "Test-sender-staff2", isDraft = false, datesent = DateTime.Now });
+            testUsers.Add(new User { userName = "BarryBob", isStaff = false, isActive = true });
+            testUsers.Add(new User { userName = "BobBarry", isStaff = true, isActive = true });
+
+            context.User.AddRange(testUsers);
+            context.SaveChanges();
+
+            testMessages.Add(new Message { subject = "Test 1", message = "Testing.", isDraft = true, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BarryBob").id, recipientID = testUsers.Single(s => s.userName == "BobBarry").id });
+            testMessages.Add(new Message { subject = "Test 2", message = "Item has not been deliverd.", isDraft = false, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BobBarry").id, recipientID = testUsers.Single(s => s.userName == "BarryBob").id });
 
             context.Messages.AddRange(testMessages);
             context.SaveChanges();

@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MessagingService.Data;
 using MessagingService.Models;
 
 namespace MessagingService.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Messages")]
     public class MessagesController : Controller
     {
         private readonly MessageContext _context;
@@ -21,153 +19,130 @@ namespace MessagingService.Controllers
             _context = context;
         }
 
-        // GET: api/Messages
-        [HttpGet]
-        public IEnumerable<Message> GetMessages()
+        // GET: Messages
+        public async Task<IActionResult> Index()
         {
-            return _context.Messages;
+            return View(await _context.Messages.ToListAsync());
         }
 
-        // GET: api/Messages/5
-        [HttpGet("{id}", Name = "Get Message")]
-        public async Task<IActionResult> GetMessage([FromRoute] int id)
+        // GET: Messages/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
 
-            var message = await _context.Messages.SingleOrDefaultAsync(m => m.id == id);
-
+            var message = await _context.Messages
+                .SingleOrDefaultAsync(m => m.id == id);
             if (message == null)
             {
                 return NotFound();
             }
 
-            return Ok(message);
+            return View(message);
         }
 
-        [HttpGet("subject/{subject}", Name = "Get messages by subject")]
-        public async Task<IActionResult> GetMessages([FromRoute] string subject)
+        // GET: Messages/Create
+        public IActionResult Create()
         {
-            if (!ModelState.IsValid)
+            return View();
+        }
+
+        // POST: Messages/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("id,subject,message,datesent,isDraft,isActive,senderID,recipientID")] Message message)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                _context.Add(message);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.subject == subject).Any())
+            return View(message);
+        }
+
+        // GET: Messages/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
-            var messages = await _context.Messages.Where(m => m.subject == subject).ToListAsync();
-            return Ok(messages);
-        }
 
-        [HttpGet("Users/{user}", Name = "Get messages by users")]
-        public async Task<IActionResult> GetMessagesbyuser([FromRoute] string user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipient == user || m.sender == user).Any())
+            var message = await _context.Messages.SingleOrDefaultAsync(m => m.id == id);
+            if (message == null)
             {
                 return NotFound();
             }
-            var messages = await _context.Messages.Where(m => m.recipient == user || m.sender == user).ToListAsync();
-            return Ok(messages);
+            return View(message);
         }
 
-        // PUT: api/Messages/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMessage([FromRoute] int id, [FromBody] Message message)
+        // POST: Messages/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("id,subject,message,datesent,isDraft,isActive,senderID,recipientID")] Message message)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             if (id != message.id)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            if (_context.Messages.Where(m => m.id == id && m.isDraft == false ).Any())
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(message);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MessageExists(message.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(message);
+        }
+
+        // GET: Messages/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
-            else
-            {
-                _context.Update(message);
-                await _context.SaveChangesAsync();
-                return Ok(message);
-            }
-        }
 
-        // POST: api/Messages
-        [HttpPost]
-        public async Task<IActionResult> SendMessage([FromBody] Message message)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
-            message.datesent = DateTime.Now;
-            _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMessage", new { id = message.id }, message);
-        }
-
-        [HttpPost("Reply/{id}")]
-        public async Task<IActionResult> PostReply([FromRoute] int id, [FromBody] Message message)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (!_context.Messages.Any() || !_context.Messages.Where(m => m.id == id).Any())
-            {
-                return NotFound();
-            }
-            if (!_context.Messages.Where(m => m.id == id).Any())
-            {
-                return NoContent();
-            }
-
-            Message mes = await _context.Messages.SingleOrDefaultAsync(m => m.id == id);
-            message.recipient = mes.recipient;
-            message.sender = mes.sender;
-            message.subject = mes.subject;
-            message.subjectId = mes.subjectId;
-            message.datesent = DateTime.Now;
-
-            _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMessage", new { id = message.id }, message);
-        }
-
-        // DELETE: api/Messages/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMessage([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var message = await _context.Messages.SingleOrDefaultAsync(m => m.id == id);
+            var message = await _context.Messages
+                .SingleOrDefaultAsync(m => m.id == id);
             if (message == null)
             {
                 return NotFound();
             }
 
+            return View(message);
+        }
+
+        // POST: Messages/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var message = await _context.Messages.SingleOrDefaultAsync(m => m.id == id);
             _context.Messages.Remove(message);
             await _context.SaveChangesAsync();
-
-            return Ok(message);
+            return RedirectToAction(nameof(Index));
         }
 
         private bool MessageExists(int id)
