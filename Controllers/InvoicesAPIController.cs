@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MessagingService.Data;
 using MessagingService.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MessagingService.Controllers
 {
@@ -22,6 +23,7 @@ namespace MessagingService.Controllers
         }
 
         // GET: api/Invoices
+        [Authorize]
         [HttpGet]
         public IEnumerable<Invoice> GetInvoice()
         {
@@ -29,6 +31,7 @@ namespace MessagingService.Controllers
         }
 
         // GET: api/Invoices/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetInvoice([FromRoute] int id)
         {
@@ -47,57 +50,28 @@ namespace MessagingService.Controllers
             return Ok(invoice);
         }
 
-        // PUT: api/Invoices/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutInvoice([FromRoute] int id, [FromBody] Invoice invoice)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (id != invoice.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(invoice).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!InvoiceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
 
         // POST: api/Invoices
-        [HttpPost]
-        public async Task<IActionResult> PostInvoice([FromBody] Invoice invoice)
+        [Authorize]
+        [HttpPost("Add/orderDetails={orderDetails}&recipient={recipient}&invoiceDate={invoiceDate}")]
+        public async Task<IActionResult> PostInvoice([FromRoute] string orderDetails, [FromRoute] string recipient, [FromRoute] DateTime invoiceDate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Invoice.Add(invoice);
+            var item = new Invoice { orderDetails = orderDetails, recipient = recipient, invoiceDate = invoiceDate };
+            await _context.Invoice.AddAsync(item);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetInvoice", new { id = invoice.id }, invoice);
+            return Ok(item);
         }
 
+
         // DELETE: api/Invoices/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInvoice([FromRoute] int id)
         {

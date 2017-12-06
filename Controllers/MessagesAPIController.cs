@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MessagingService.Data;
 using MessagingService.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MessagingService.Controllers
 {
@@ -29,6 +30,7 @@ namespace MessagingService.Controllers
         }
 
         // GET: api/Messages/5
+        [Authorize]
         [HttpGet("{id}", Name = "Get Message")]
         public async Task<IActionResult> GetMessage([FromRoute] int id)
         {

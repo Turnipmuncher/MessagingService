@@ -11,9 +11,8 @@ namespace MessagingService.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public string orderDetails { get; set; }
-        public string sender { get; set; }
         public string recipient { get; set; }
-        public DateTime datesent { get; set; }
+        public DateTime invoiceDate { get; set; }
         
     }
 }

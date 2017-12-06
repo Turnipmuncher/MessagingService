@@ -32,7 +32,7 @@ namespace MessagingService.Data
             context.Messages.AddRange(testMessages);
             context.SaveChanges();
 
-            testInvoices.Add(new Invoice { orderDetails = "Testing", sender = "Test-Sender", recipient = "Test-Recipient", datesent = DateTime.Now });
+            testInvoices.Add(new Invoice { orderDetails = "Testing", recipient = "Test-Recipient", invoiceDate = DateTime.Now });
 
             context.Invoice.AddRange(testInvoices);
             context.SaveChanges();
