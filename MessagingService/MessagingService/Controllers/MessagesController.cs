@@ -60,7 +60,7 @@ namespace MessagingService.Controllers
             {
                 _context.Add(message);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(message);
         }
