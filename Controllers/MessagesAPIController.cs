@@ -23,6 +23,7 @@ namespace MessagingService.Controllers
         }
 
         // GET: api/Messages
+        [Authorize]
         [HttpGet]
         public IEnumerable<Message> GetMessages()
         {
@@ -49,6 +50,7 @@ namespace MessagingService.Controllers
             return Ok(message);
         }
 
+        [Authorize]
         [HttpGet("subject/{subject}", Name = "Get messages by subject")]
         public async Task<IActionResult> GetMessages([FromRoute] string subject)
         {
@@ -64,6 +66,7 @@ namespace MessagingService.Controllers
             return Ok(messages);
         }
 
+        [Authorize]
         [HttpGet("Users/{user}", Name = "Get messages by users")]
         public async Task<IActionResult> Getmessagesbyuser([FromRoute] string user)
         {
@@ -80,6 +83,7 @@ namespace MessagingService.Controllers
             return Ok(messages);
         }
 
+        [Authorize]
         [HttpGet("Users/sent/{sender}", Name = "Get messages by sent by user")]
         public async Task<IActionResult> Getusersentmessages([FromRoute] string sender)
         {
@@ -96,6 +100,7 @@ namespace MessagingService.Controllers
             return Ok(messages);
         }
 
+        [Authorize]
         [HttpGet("Users/recieved/{reciever}", Name = "Get messages recieved by users")]
         public async Task<IActionResult> Getuserrecievedmessages([FromRoute] string reciever)
         {
@@ -113,6 +118,7 @@ namespace MessagingService.Controllers
         }
 
         // PUT: api/Messages/5
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMessage([FromRoute] int id, [FromBody] Message message)
         {
@@ -140,6 +146,7 @@ namespace MessagingService.Controllers
         }
 
         // POST: api/Messages
+        [Authorize]
         [HttpPost ("send/{user}")]
         public async Task<IActionResult> SendMessage([FromBody] Message message, [FromRoute] string user)
         {
@@ -163,6 +170,7 @@ namespace MessagingService.Controllers
             return CreatedAtAction("GetMessage", new { id = message.id }, message);
         }
 
+        [Authorize]
         [HttpPost("Reply/{id}")]
         public async Task<IActionResult> PostReply([FromRoute] int id, [FromBody] Message message)
         {
@@ -193,6 +201,7 @@ namespace MessagingService.Controllers
         }
 
         // DELETE: api/Messages/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMessage([FromRoute] int id)
         {
