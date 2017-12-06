@@ -12,60 +12,61 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.subject)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.message)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.datesent)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.isDraft)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.isActive)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.senderID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.recipientID)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datesent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isDraft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.senderID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.recipientID)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.subject)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.message)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.datesent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isDraft)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.senderID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.recipientID)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.message)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.datesent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isDraft)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.senderID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.recipientID)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

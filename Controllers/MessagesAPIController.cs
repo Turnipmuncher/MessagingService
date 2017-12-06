@@ -23,7 +23,7 @@ namespace MessagingService.Controllers
         }
 
         // GET: api/Messages
-        [Authorize]
+       // [Authorize]
         [HttpGet]
         public IEnumerable<Message> GetMessages()
         {

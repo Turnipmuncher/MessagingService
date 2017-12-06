@@ -54,13 +54,13 @@ namespace MessagingService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,subject,message,datesent,isDraft,isActive,senderID,recipientID")] Message message)
+        public async Task<IActionResult> Create([Bind("id,subject,message,datesent,is,isActive,senderID,recipientID")] Message message)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(message);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(message);
         }
