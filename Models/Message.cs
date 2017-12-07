@@ -19,6 +19,7 @@ namespace MessagingService.Models
         public bool isActive { get; set; }
         public string senderID { get; set; }
         public string recipientID { get; set; }
+        public string recipient { get; set; }
 
 
         public User User { get; set; }

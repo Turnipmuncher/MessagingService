@@ -26,8 +26,8 @@ namespace MessagingService.Data
             context.User.AddRange(testUsers);
             context.SaveChanges();
 
-            testMessages.Add(new Message { subject = "Test 1", message = "Testing.", isDraft = true, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BarryBob").userID, recipientID = testUsers.Single(s => s.userName == "BobBarry").userID });
-            testMessages.Add(new Message { subject = "Test 2", message = "Item has not been deliverd.", isDraft = false, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BobBarry").userID, recipientID = testUsers.Single(s => s.userName == "BarryBob").userID });
+            testMessages.Add(new Message { subject = "Test 1", message = "Testing.", isDraft = true, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BarryBob").userID, recipientID = testUsers.Single(s => s.userName == "BobBarry").userID, recipient ="BobBarry" });
+            testMessages.Add(new Message { subject = "Test 2", message = "Item has not been deliverd.", isDraft = false, datesent = DateTime.Now, isActive = true, senderID = testUsers.Single(s => s.userName == "BobBarry").userID, recipientID = testUsers.Single(s => s.userName == "BarryBob").userID, recipient = "BarryBob" });
 
             context.Messages.AddRange(testMessages);
             context.SaveChanges();

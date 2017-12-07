@@ -22,7 +22,7 @@ namespace MessagingService.Controllers
             _context = context;
         }
 
-        // GET: api/Messages
+       // GET: api/Messages
        // [Authorize]
         [HttpGet]
         public IEnumerable<Message> GetMessages()
@@ -50,9 +50,10 @@ namespace MessagingService.Controllers
             return Ok(message);
         }
 
+        
         [Authorize]
         [HttpGet("subject/{subject}", Name = "Get messages by subject")]
-        public async Task<IActionResult> GetMessages([FromRoute] string subject)
+        public async Task<IActionResult> GetMessagesBySubject([FromRoute] string subject)
         {
             if (!ModelState.IsValid)
             {
@@ -146,24 +147,57 @@ namespace MessagingService.Controllers
         }
 
         // POST: api/Messages
-        [Authorize]
-        [HttpPost ("send/{user}")]
-        public async Task<IActionResult> SendMessage([FromBody] Message message, [FromRoute] string user)
+        //[Authorize]
+        [HttpPost ("send/subject={subject}&message={message}&recipient={recipient}&isDraft={isDraft}")]
+        public async Task<IActionResult> UserSendMessage([FromRoute] string Subject, [FromRoute] string Message, [FromRoute] string recipient, [FromRoute] bool isDaft)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            if(!_context.User.Where(u => u.userName == user).Any())
+            if(!_context.User.Where(u => u.userName == recipient).Any())
             {
-                _context.User.Add(new User {userName = user, isStaff = true, isActive = true });
+                _context.User.Add(new User {userName = recipient, isStaff = true, isActive = true });
                 await _context.SaveChangesAsync();
             }
 
-            message.recipientID = _context.User.SingleOrDefault(u => u.userName == user).userID;
+            var message = new Message();
+            message.subject = Subject;
+            message.message = Message;
+            message.senderID = "Testing";
+            message.recipientID = _context.User.SingleOrDefault(u => u.userName == recipient).userID;
+            message.recipient = recipient;
             message.datesent = DateTime.Now;
             message.isActive = true;
+            message.isDraft = isDaft;
             
+            _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetMessage", new { id = message.id }, message);
+        }
+
+        // POST: api/Messages
+        //[Authorize]
+        [HttpPost("send/{recipien}")]
+        public async Task<IActionResult> SendMessage([FromBody] Message message, [FromRoute] string recipient)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!_context.User.Where(u => u.userName == recipient).Any())
+            {
+                _context.User.Add(new User { userName = recipient, isStaff = true, isActive = true });
+                await _context.SaveChangesAsync();
+            }
+
+            message.senderID = "Testing";
+            message.recipientID = _context.User.SingleOrDefault(u => u.userName == recipient).userID;
+            message.recipient = recipient;
+            message.datesent = DateTime.Now;
+            message.isActive = true;
+
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
 

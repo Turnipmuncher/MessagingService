@@ -24,5 +24,7 @@ namespace MessagingService.Data
             modelBuilder.Entity<Invoice>().ToTable("Invoice");
             modelBuilder.Entity<User>().ToTable("User");
         }
+
+        public DbSet<MessagingService.Models.MessageDTO> MessageDTO { get; set; }
     }
 }

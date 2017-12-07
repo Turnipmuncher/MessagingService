@@ -1,21 +1,14 @@
-﻿@model MessagingService.Models.Message
+﻿@model MessagingService.Models.MessageDTO
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Delete";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
-</head>
-<body>
+<h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Message</h4>
+    <h4>MessageDTO</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -31,34 +24,16 @@
             @Html.DisplayFor(model => model.message)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.datesent)
+            @Html.DisplayNameFor(model => model.recipient)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.datesent)
+            @Html.DisplayFor(model => model.recipient)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.isDraft)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.isDraft)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.isActive)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.isActive)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.senderID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.senderID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.recipientID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.recipientID)
         </dd>
     </dl>
     
@@ -68,5 +43,3 @@
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
-</body>
-</html>

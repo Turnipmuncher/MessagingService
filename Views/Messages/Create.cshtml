@@ -1,76 +1,37 @@
-﻿@model MessagingService.Models.Message
+﻿@model MessagingService.Models.MessageDTO
 
 @{
-   
+    ViewData["Title"] = "Create";
 }
 
-<!DOCTYPE html>
+<h2>Create</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-
-<h4>Message</h4>
+<h4>MessageDTO</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                @Html.LabelFor(model => model.subject, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.subject, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.subject, "", new { @class = "text-danger" })
-                </div>
+                <label asp-for="subject" class="control-label"></label>
+                <input asp-for="subject" class="form-control" />
+                <span asp-validation-for="subject" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.message, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.message, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.message, "", new { @class = "text-danger" })
-                </div>
+                <label asp-for="message" class="control-label"></label>
+                <input asp-for="message" class="form-control" />
+                <span asp-validation-for="message" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.datesent, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.datesent, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.datesent, "", new { @class = "text-danger" })
-                </div>
+                <label asp-for="recipient" class="control-label"></label>
+                <input asp-for="recipient" class="form-control" />
+                <span asp-validation-for="recipient" class="text-danger"></span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.isDraft, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.isDraft)
-                        @Html.ValidationMessageFor(model => model.isDraft, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.isActive)
-                        @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.senderID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.senderID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.senderID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.recipientID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.recipientID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.recipientID, "", new { @class = "text-danger" })
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="isDraft" /> @Html.DisplayNameFor(model => model.isDraft)
+                    </label>
                 </div>
             </div>
             <div class="form-group">
@@ -87,5 +48,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-</body>
-</html>

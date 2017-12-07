@@ -54,15 +54,17 @@ namespace MessagingService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,subject,message,datesent,is,isActive,senderID,recipientID")] Message message)
+        public async Task<IActionResult> Create([Bind("subject,message,recipient,isDraft")] MessageDTO messageDTO)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(message);
-                await _context.SaveChangesAsync();
+                //context.Add(messageDTO);
+                //await _context.SaveChangesAsync();
+                var messageAPI = new MessagesAPIController(_context);
+                await messageAPI.UserSendMessage(messageDTO.subject, messageDTO.message, messageDTO.recipient, messageDTO.isDraft);
                 return RedirectToAction(nameof(Index));
             }
-            return View(message);
+            return View(messageDTO);
         }
 
         // GET: Messages/Edit/5
@@ -86,7 +88,7 @@ namespace MessagingService.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,subject,message,datesent,isDraft,isActive,senderID,recipientID")] Message message)
+        public async Task<IActionResult> Edit(int id, [Bind("id,subject,message,recipient,isDraft")] Message message)
         {
             if (id != message.id)
             {
