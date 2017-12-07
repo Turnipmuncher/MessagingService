@@ -31,7 +31,7 @@ namespace MessagingService.Controllers
         }
 
         // GET: api/Messages/5
-        [Authorize]
+       // [Authorize]
         [HttpGet("{id}", Name = "Get Message")]
         public async Task<IActionResult> GetMessage([FromRoute] int id)
         {
@@ -44,14 +44,14 @@ namespace MessagingService.Controllers
 
             if (message == null)
             {
-                return NotFound();
+                return NoContent();
             }
 
             return Ok(message);
         }
 
         
-        [Authorize]
+       // [Authorize]
         [HttpGet("subject/{subject}", Name = "Get messages by subject")]
         public async Task<IActionResult> GetMessagesBySubject([FromRoute] string subject)
         {
@@ -61,13 +61,13 @@ namespace MessagingService.Controllers
             }
             if (!_context.Messages.Any() || !_context.Messages.Where(m => m.subject == subject && m.isActive == true).Any())
             {
-                return NotFound();
+                return NoContent();
             }
             var messages = await _context.Messages.Where(m => m.subject == subject).ToListAsync();
             return Ok(messages);
         }
 
-        [Authorize]
+      //  [Authorize]
         [HttpGet("Users/{user}", Name = "Get messages by users")]
         public async Task<IActionResult> Getmessagesbyuser([FromRoute] string user)
         {
@@ -78,13 +78,13 @@ namespace MessagingService.Controllers
 
             if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == user).userID || m.senderID == _context.User.SingleOrDefault(u => u.userName == user).userID && m.isActive == true).Any())
             {
-                return NotFound();
+                return NoContent();
             }
             var messages = await _context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == user).userID || m.senderID == _context.User.SingleOrDefault(u => u.userName == user).userID).ToListAsync();
             return Ok(messages);
         }
 
-        [Authorize]
+      //  [Authorize]
         [HttpGet("Users/sent/{sender}", Name = "Get messages by sent by user")]
         public async Task<IActionResult> Getusersentmessages([FromRoute] string sender)
         {
@@ -95,13 +95,13 @@ namespace MessagingService.Controllers
 
             if (!_context.Messages.Any() || !_context.Messages.Where(m => m.senderID == _context.User.SingleOrDefault(u => u.userName == sender).userID && m.isActive == true).Any())
             {
-                return NotFound();
+                return NoContent();
             }
             var messages = await _context.Messages.Where(m => m.senderID == _context.User.SingleOrDefault(u => u.userName == sender).userID).ToListAsync();
             return Ok(messages);
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpGet("Users/recieved/{reciever}", Name = "Get messages recieved by users")]
         public async Task<IActionResult> Getuserrecievedmessages([FromRoute] string reciever)
         {
@@ -112,14 +112,14 @@ namespace MessagingService.Controllers
 
             if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == reciever).userID).Any())
             {
-                return NotFound();
+                return NoContent();
             }
             var messages = await _context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == reciever).userID).ToListAsync();
             return Ok(messages);
         }
 
         // PUT: api/Messages/5
-        [Authorize]
+      //  [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMessage([FromRoute] int id, [FromBody] Message message)
         {
@@ -135,7 +135,7 @@ namespace MessagingService.Controllers
 
             if (_context.Messages.Where(m => m.id == id && m.isDraft == false ).Any())
             {
-                return NotFound();
+                return NoContent();
             }
 
             else
@@ -179,7 +179,7 @@ namespace MessagingService.Controllers
 
         // POST: api/Messages
         //[Authorize]
-        [HttpPost("send/{recipien}")]
+        [HttpPost("send/{recipient}")]
         public async Task<IActionResult> SendMessage([FromBody] Message message, [FromRoute] string recipient)
         {
             if (!ModelState.IsValid)
@@ -204,7 +204,7 @@ namespace MessagingService.Controllers
             return CreatedAtAction("GetMessage", new { id = message.id }, message);
         }
 
-        [Authorize]
+      //  [Authorize]
         [HttpPost("Reply/{id}")]
         public async Task<IActionResult> PostReply([FromRoute] int id, [FromBody] Message message)
         {
@@ -213,10 +213,6 @@ namespace MessagingService.Controllers
                 return BadRequest(ModelState);
             }
             if (!_context.Messages.Any() || !_context.Messages.Where(m => m.id == id).Any())
-            {
-                return NotFound();
-            }
-            if (!_context.Messages.Where(m => m.id == id).Any())
             {
                 return NoContent();
             }
@@ -235,7 +231,7 @@ namespace MessagingService.Controllers
         }
 
         // DELETE: api/Messages/5
-        [Authorize]
+     //   [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMessage([FromRoute] int id)
         {

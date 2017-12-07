@@ -1,0 +1,14 @@
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\Message.Test\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\Message.Test\Debug\netcoreapp2.0\xunit.runner.utility.netstandard15.dll
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\Message.Test\Debug\netcoreapp2.0\xunit.runner.reporters.netstandard15.dll
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\Message.Test\Debug\netcoreapp2.0\Message.Test.deps.json
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\Message.Test\Debug\netcoreapp2.0\Message.Test.runtimeconfig.json
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\Message.Test\Debug\netcoreapp2.0\Message.Test.runtimeconfig.dev.json
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\Message.Test\Debug\netcoreapp2.0\Message.Test.dll
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\Message.Test\Debug\netcoreapp2.0\Message.Test.pdb
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\Message.Test\Debug\netcoreapp2.0\Message.Test.csprojResolveAssemblyReference.cache
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\Message.Test\Debug\netcoreapp2.0\Message.Test.csproj.CoreCompileInputs.cache
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\Message.Test\Debug\netcoreapp2.0\Message.Test.AssemblyInfoInputs.cache
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\Message.Test\Debug\netcoreapp2.0\Message.Test.AssemblyInfo.cs
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\Message.Test\Debug\netcoreapp2.0\Message.Test.dll
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\Message.Test\Debug\netcoreapp2.0\Message.Test.pdb

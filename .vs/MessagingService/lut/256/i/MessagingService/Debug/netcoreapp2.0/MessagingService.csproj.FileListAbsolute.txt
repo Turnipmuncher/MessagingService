@@ -1,0 +1,12 @@
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\MessagingService\Debug\netcoreapp2.0\MessagingService.deps.json
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\MessagingService\Debug\netcoreapp2.0\MessagingService.runtimeconfig.json
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\MessagingService\Debug\netcoreapp2.0\MessagingService.runtimeconfig.dev.json
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\MessagingService\Debug\netcoreapp2.0\MessagingService.dll
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\MessagingService\Debug\netcoreapp2.0\MessagingService.pdb
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\b\MessagingService\Debug\netcoreapp2.0\Microsoft.CodeAnalysis.LiveUnitTesting.Runtime.dll
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\MessagingService\Debug\netcoreapp2.0\MessagingService.csprojResolveAssemblyReference.cache
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\MessagingService\Debug\netcoreapp2.0\MessagingService.csproj.CoreCompileInputs.cache
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\MessagingService\Debug\netcoreapp2.0\MessagingService.AssemblyInfoInputs.cache
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\MessagingService\Debug\netcoreapp2.0\MessagingService.AssemblyInfo.cs
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\MessagingService\Debug\netcoreapp2.0\MessagingService.dll
+C:\Users\q5233000\Documents\GitHub\MessagingService\.vs\MessagingService\lut\0\i\MessagingService\Debug\netcoreapp2.0\MessagingService.pdb

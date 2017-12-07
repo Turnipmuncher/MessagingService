@@ -28,9 +28,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Business Units", "Index", "BusinessUnits")</li>
-                    <li>@Html.ActionLink("Staff", "Index", "Staff")</li>
+                    <li>@Html.ActionLink("Home", "Index")</li>
+                    <li>@Html.ActionLink( "Index", "Index")</li>
                 </ul>
             </div>
         </div>
@@ -39,7 +38,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - TeamD Theam</p>
         </footer>
     </div>
 
