@@ -23,7 +23,7 @@ namespace MessagingService.Controllers
         }
 
         // GET: api/Invoices
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IEnumerable<Invoice> GetInvoice()
         {
@@ -31,7 +31,7 @@ namespace MessagingService.Controllers
         }
 
         // GET: api/Invoices/5
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetInvoice([FromRoute] int id)
         {
@@ -53,7 +53,7 @@ namespace MessagingService.Controllers
 
 
         // POST: api/Invoices
-        [Authorize]
+        //[Authorize]
         [HttpPost("Add/orderDetails={orderDetails}&recipient={recipient}&invoiceDate={invoiceDate}")]
         public async Task<IActionResult> PostInvoice([FromRoute] string orderDetails, [FromRoute] string recipient, [FromRoute] DateTime invoiceDate)
         {
@@ -71,7 +71,7 @@ namespace MessagingService.Controllers
 
 
         // DELETE: api/Invoices/5
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteInvoice([FromRoute] int id)
         {

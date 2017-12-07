@@ -30,7 +30,7 @@ namespace MessagingService.Controllers
             return _context.Messages;
         }
 
-        // GET: api/Messages/5
+        // GET: api/Messages/id
        // [Authorize]
         [HttpGet("{id}", Name = "Get Message")]
         public async Task<IActionResult> GetMessage([FromRoute] int id)
@@ -51,6 +51,7 @@ namespace MessagingService.Controllers
         }
 
         
+        
        // [Authorize]
         [HttpGet("subject/{subject}", Name = "Get messages by subject")]
         public async Task<IActionResult> GetMessagesBySubject([FromRoute] string subject)
@@ -59,6 +60,7 @@ namespace MessagingService.Controllers
             {
                 return BadRequest(ModelState);
             }
+            //Check For Messages that match the Subject
             if (!_context.Messages.Any() || !_context.Messages.Where(m => m.subject == subject && m.isActive == true).Any())
             {
                 return NoContent();
@@ -75,7 +77,7 @@ namespace MessagingService.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            //Check for messages involving sent user
             if (!_context.Messages.Any() || !_context.Messages.Where(m => m.recipientID == _context.User.SingleOrDefault(u => u.userName == user).userID || m.senderID == _context.User.SingleOrDefault(u => u.userName == user).userID && m.isActive == true).Any())
             {
                 return NoContent();
@@ -127,12 +129,13 @@ namespace MessagingService.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            //Check is message ID matched url
             if (id != message.id)
             {
                 return BadRequest();
             }
 
+            //Check if meassage exists and is a draft
             if (_context.Messages.Where(m => m.id == id && m.isDraft == false ).Any())
             {
                 return NoContent();
@@ -146,6 +149,7 @@ namespace MessagingService.Controllers
             }
         }
 
+        //Post message from front end with values form front end controller
         // POST: api/Messages
         //[Authorize]
         [HttpPost ("send/subject={subject}&message={message}&recipient={recipient}&isDraft={isDraft}")]
@@ -177,6 +181,7 @@ namespace MessagingService.Controllers
             return CreatedAtAction("GetMessage", new { id = message.id }, message);
         }
 
+        //Send message to a recipient
         // POST: api/Messages
         //[Authorize]
         [HttpPost("send/{recipient}")]
@@ -186,13 +191,17 @@ namespace MessagingService.Controllers
             {
                 return BadRequest(ModelState);
             }
+            //Check is recipient exists
             if (!_context.User.Where(u => u.userName == recipient).Any())
             {
+                //Create new user to match recipient
                 _context.User.Add(new User { userName = recipient, isStaff = true, isActive = true });
                 await _context.SaveChangesAsync();
             }
 
+            //This Id would of bee takenfrom token passed through by authentication
             message.senderID = "Testing";
+            //Set recipient ID to match userid in User table
             message.recipientID = _context.User.SingleOrDefault(u => u.userName == recipient).userID;
             message.recipient = recipient;
             message.datesent = DateTime.Now;
@@ -204,19 +213,21 @@ namespace MessagingService.Controllers
             return CreatedAtAction("GetMessage", new { id = message.id }, message);
         }
 
-      //  [Authorize]
+        //Reply to message
+        //  [Authorize]
         [HttpPost("Reply/{id}")]
         public async Task<IActionResult> PostReply([FromRoute] int id, [FromBody] Message message)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            //Check if message needing reply exists
             }
             if (!_context.Messages.Any() || !_context.Messages.Where(m => m.id == id).Any())
             {
                 return NoContent();
             }
-
+            //Create instance of previous message
             Message mes = await _context.Messages.SingleOrDefaultAsync(m => m.id == id);
             message.recipientID = mes.recipientID;
             message.senderID = mes.senderID;
@@ -231,7 +242,7 @@ namespace MessagingService.Controllers
         }
 
         // DELETE: api/Messages/5
-     //   [Authorize]
+         //   [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMessage([FromRoute] int id)
         {

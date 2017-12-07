@@ -28,6 +28,7 @@ namespace MessagingService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Database connection string
             services.AddDbContext<MessageContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MessageConnection")));
 
             services.AddMvc();

@@ -10,18 +10,18 @@ namespace MessagingService.Data
     {
         public static void Initialize(MessageContext context)
         {
-#if DEBUG
+#if DEBUG   //Delete existing data for debugging
             context.Database.EnsureDeleted();
 #endif
             context.Database.EnsureCreated();
 
-#if DEBUG
+#if DEBUG   //During debugging generate test data
             List<Message> testMessages = new List<Message>();
             List<Invoice> testInvoices = new List<Invoice>();
             List<User> testUsers = new List<User>();
 
             testUsers.Add(new User { userID = "Test1-Pls-ignore", userName = "BarryBob", isStaff = false, isActive = true });
-            testUsers.Add(new User { userID = "Test1-Pls-ignore", userName = "BobBarry", isStaff = true, isActive = true });
+            testUsers.Add(new User { userID = "Test2-Pls-ignore", userName = "BobBarry", isStaff = true, isActive = true });
 
             context.User.AddRange(testUsers);
             context.SaveChanges();
